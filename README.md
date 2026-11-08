@@ -45,7 +45,7 @@ starting anything.
 | A free TMDB token in `.env` | For trailers, age ratings, seasons and streaming. A person has to get it (see the next section) |
 | About 13 GB of free disk | 3.4 GB of downloads unpack to about 7 GB. Add the database and vectors (1.5 GB), `.venv` (1 GB or more) and the embedding model (1.2 GB) |
 | 16 GB of memory | The crowd step holds a 14,000 × 14,000 matrix |
-| 3 to 5 hours | Most of it is waiting on Wikipedia's rate limit. The vector step takes about an hour on Apple Silicon or an NVIDIA GPU, and many hours on a CPU alone |
+| 3 to 5 hours | Most of it is waiting on Wikipedia's rate limit. The last step (vectors) took 72 minutes on an M4 Max Mac. It uses an NVIDIA or Apple GPU when there is one; on a CPU alone it takes many hours |
 | python3, version 3.9 or newer | The skill's helper runs on the system Python, which macOS and most Linux systems have |
 | Claude Code or Codex | Or any agent that can read `skills/movie-finder/SKILL.md` and run its commands |
 

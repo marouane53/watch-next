@@ -71,7 +71,7 @@ describe() {
     base)      echo "Catalogue: IMDb links, TV shows, crowd data and tags (about 5 minutes)" ;;
     wikipedia) echo "Wikipedia introductions (1 to 3 hours: Wikipedia throttles downloads)" ;;
     tmdb)      echo "TMDB details: trailers, age ratings, seasons, streaming (about 1 hour)" ;;
-    final)     echo "Plot vectors, similar titles and vibe clusters (about 1 hour with a GPU)" ;;
+    final)     echo "Plot vectors, similar titles and vibe clusters (about 75 minutes with a GPU)" ;;
   esac
 }
 

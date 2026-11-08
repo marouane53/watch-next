@@ -944,7 +944,19 @@ def find_venv_python():
 
 
 def sock_path(db):
-    return db.parent / "vectors" / "embed.sock"
+    """The embedding server's Unix socket: beside the vectors, else in a private folder whose path
+    is short enough for a socket (about 100 characters at most)."""
+    path = db.parent / "vectors" / "embed.sock"
+    if len(str(path)) < 100:
+        return path
+    import hashlib
+    name = f"embed-{hashlib.sha1(str(db).encode()).hexdigest()[:12]}.sock"
+    for folder in (Path.home() / ".cache" / "movie-finder", Path(f"/tmp/movie-finder-{os.getuid()}")):
+        if len(str(folder / name)) < 100:
+            folder.mkdir(mode=0o700, parents=True, exist_ok=True)
+            if folder.stat().st_uid == os.getuid():
+                return folder / name
+    die("the project's path is too long for the embedding server's socket; move it to a shorter path")
 
 
 def cmd_embed_server(a, con, db, profile):
