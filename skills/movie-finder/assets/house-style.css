@@ -1,0 +1,121 @@
+/* Movie Finder house style: an election-night front page. Cream newsprint, ink and one vermilion,
+   Big Shoulders Display (condensed, uppercase) for headlines, labels and numbers, Newsreader for
+   reading text. Every HTML page or image the skill makes uses this file, inlined in a <style> tag,
+   with the fonts loaded in <head>:
+   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+   references/style.md describes the components and how to render a share image. */
+
+:root {
+  --paper: oklch(94.5% 0.025 85);
+  --paper-deep: oklch(90% 0.035 80);
+  --ink: oklch(22% 0.015 60);
+  --ink-2: oklch(38% 0.02 60);
+  --ink-3: oklch(52% 0.025 65);
+  --red: oklch(60% 0.19 35);
+  --hatch: oklch(22% 0.015 60 / .16);
+  --rule: oklch(22% 0.015 60 / .4);
+  --cond: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --serif: "Newsreader", Georgia, serif;
+  /* Category colours for charts, in this order (they sit on newsprint). */
+  --c1: #2c4f9e; --c2: #d9441f; --c3: #2f6b5a; --c4: #231e18; --c5: #d49a22; --c6: #b86a7f;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--paper); color: var(--ink); font: 16px/1.45 var(--serif); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+/* Newsprint grain over the whole page (scrolling pages) or one sheet (fixed share images). */
+body.paper::after, .sheet::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: .28; z-index: 5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.sheet::after { position: absolute; }
+
+/* A scrolling page (boards) and a fixed canvas (share images, 1600px wide, scaled to fit the window). */
+.page { max-width: 1280px; margin: 0 auto; padding: 22px 16px 28px; }
+@media (min-width: 720px) { .page { padding: 28px 40px 32px; } }
+.sheet { position: relative; width: 1600px; flex: none; overflow: hidden; padding: 26px 52px 0;
+         background: radial-gradient(140% 120% at 50% 40%, transparent 55%, oklch(80% 0.04 75 / .55) 100%), var(--paper); }
+body.stage { height: 100vh; overflow: hidden; display: grid; place-items: center; background: oklch(30% 0.02 60); }
+
+/* Masthead: the flag (title of the paper) and the dateline, over a double rule. */
+.masthead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px;
+            padding-bottom: 8px; border-bottom: 4px solid var(--ink); box-shadow: 0 5px 0 -3px var(--paper), 0 6px 0 -3px var(--ink); }
+.flag { font: 900 25px/1 var(--cond); letter-spacing: .16em; text-transform: uppercase; }
+.flag span, .headline span { color: var(--red); }
+.dateline { font: 700 15px/1.1 var(--cond); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+
+/* Headline and deck. */
+.headline { margin-top: 18px; font: 900 clamp(46px, 8vw, 86px)/.86 var(--cond); text-transform: uppercase; letter-spacing: -.005em; }
+.deck { margin-top: 14px; max-width: 900px; font-size: clamp(16px, 1.6vw, 18.5px); line-height: 1.42; font-style: italic; color: var(--ink-2); }
+.deck b { font-style: normal; font-weight: 600; color: var(--ink); }
+.kicker { font: 800 13px/1 var(--cond); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+
+/* Section label: a condensed heading on a rule, an italic aside, and a key on the right. */
+.label { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px;
+         border-bottom: 2px solid var(--ink); padding-bottom: 6px; margin: 30px 0 26px; }
+.label h2 { font: 900 30px/1 var(--cond); letter-spacing: .08em; text-transform: uppercase; }
+.label h2 em { font: italic 400 16px var(--serif); letter-spacing: 0; text-transform: none; color: var(--ink-2); margin-left: 10px; }
+.key { font-size: 13.5px; font-style: italic; color: var(--ink-2); }
+.key b { font: 800 13px var(--cond); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); margin-right: 4px; }
+.key span + span { margin-left: 18px; }
+
+/* Cards: a poster with a number tab and a rating tab, then the title and condensed facts.
+   .grid wraps to the window; .row10 is ten fixed columns for a share image. */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 40px 22px; }
+.row10 { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 16px; }
+.card { min-width: 0; }
+.poster { position: relative; aspect-ratio: 2 / 3; outline: 1.5px solid var(--ink); background: var(--paper-deep); }
+.poster img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.92) contrast(1.02); }
+.poster .blank { height: 100%; display: grid; place-items: center; padding: 14px; text-align: center;
+                 font: 900 26px/.95 var(--cond); text-transform: uppercase; color: var(--ink-3); }
+.tab { position: absolute; z-index: 2; left: -1.5px; top: -15px; padding: 5px 8px 4px; background: var(--ink); color: var(--paper);
+       font: 800 17px/1 var(--cond); letter-spacing: .06em; }
+.win .tab { background: var(--red); }
+.rate { position: absolute; z-index: 2; right: -1.5px; top: -15px; padding: 5px 7px 4px; background: var(--paper);
+        box-shadow: inset 0 0 0 1.5px var(--ink); font: 800 15px/1 var(--cond); letter-spacing: .04em; }
+.stamp { position: absolute; z-index: 2; left: 50%; bottom: 16px; transform: translateX(-50%) rotate(-9deg);
+         padding: 4px 12px 3px; border: 3px solid var(--red); outline: 1.5px solid var(--red); outline-offset: 2px;
+         font: 900 25px/1 var(--cond); letter-spacing: .2em; text-transform: uppercase;
+         color: var(--red); background: oklch(94.5% 0.025 85 / .82); filter: url(#ink); }
+.card .kicker { margin-top: 12px; }
+.card h3 { margin-top: 5px; font-size: 18px; font-weight: 600; line-height: 1.14; }
+.card h3 small { font: 700 15px var(--cond); letter-spacing: .06em; color: var(--ink-3); margin-left: 4px; }
+.row10 .card h3 { margin-top: 11px; font-size: 16px; min-height: 36.5px;
+                  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.row10.single .card h3 { min-height: 0; }
+.row10 .card h3.long { font-size: 14px; letter-spacing: -.005em; -webkit-line-clamp: 3; }
+.meta { display: flex; justify-content: space-between; gap: 6px; margin-top: 4px;
+        font: 700 13px/1.2 var(--cond); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); }
+.meta span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.meta b { flex: none; font-weight: 800; letter-spacing: .04em; color: var(--ink); }
+.note { margin-top: 9px; font-size: 15px; line-height: 1.38; }
+.ov { margin-top: 9px; font-size: 14px; line-height: 1.38; font-style: italic; color: var(--ink-2); }
+.facts { margin-top: 8px; font-size: 13px; line-height: 1.3; font-style: italic; color: var(--ink-2); }
+.links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 10px; padding-top: 7px; border-top: 1px solid var(--rule);
+         font: 800 13px/1.2 var(--cond); letter-spacing: .1em; text-transform: uppercase; }
+.links a { text-decoration: none; border-bottom: 2px solid var(--red); }
+.links a:hover { color: var(--red); }
+
+/* Vote strength: a hatched bar filled in ink (red for the winner) and its percentage. */
+.result { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.bar { flex: 1; height: 9px; background: repeating-linear-gradient(-45deg, var(--hatch) 0 1.5px, transparent 1.5px 5px);
+       box-shadow: inset 0 0 0 1px oklch(22% 0.015 60 / .35); }
+.bar i { display: block; height: 100%; background: var(--ink); }
+.win .bar i { background: var(--red); }
+.result b { font: 900 19px/1 var(--cond); min-width: 40px; text-align: right; }
+.win .result b { color: var(--red); }
+.via { margin-top: 6px; font-size: 12.5px; line-height: 1.3; font-style: italic; color: var(--ink-2);
+       display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.via span { font: 800 11.5px/1 var(--cond); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+
+/* Colophon: method and credits under a thin rule. */
+.colophon { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 40px; margin-top: 44px; padding-top: 8px;
+            border-top: 1px solid var(--rule); font-size: 13px; font-style: italic; color: var(--ink-2); }
+.colophon b { font: 800 13px var(--cond); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-right: 4px; }
+
+/* Phones: cards turn sideways, a small poster beside the text. */
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; gap: 34px; }
+  .grid .card { display: grid; grid-template-columns: 112px 1fr; gap: 0 16px; align-items: start; }
+  .grid .card .kicker { margin-top: 0; }
+}

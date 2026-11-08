@@ -1,0 +1,4 @@
+interface:
+  display_name: "Movie Finder"
+  short_description: "Find and recommend films and series from a local catalogue of 78k titles, with a taste profile."
+  default_prompt: "Use $movie-finder to recommend a film for tonight that fits my taste profile."

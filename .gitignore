@@ -1,0 +1,10 @@
+# Built on each machine from the original sources; their licences forbid redistributing them.
+data/
+# Private: the TMDB token.
+.env
+# Personal pages the skill writes (picks, posters).
+boards/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,12 @@
+# The build environment (.venv, Python 3.12), at the versions the catalogue was built and tested
+# with. ./install.sh installs it; the skill itself only needs the system python3 (3.9 or newer),
+# except `ask`, which re-launches itself in .venv.
+numpy==2.5.4
+scipy==1.18.1
+pandas==3.1.1
+pyarrow==26.0.1
+torch==2.15.0
+transformers==5.22.2
+sentence-transformers==6.2.0
+igraph==1.0.0
+leidenalg==0.12.0
