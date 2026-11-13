@@ -95,7 +95,7 @@ back). Without `--type`, results mix films and shows. `--json` gives structured 
    this skill; your job is to drive it well. Anchor titles go to `recommend`. A theme, mood or
    premise goes to `ask`, used the measured way (next section). Hard constraints become filters.
    Use anchors that match the request: a film mentioned in passing during a series request shapes
-   your "why you" lines rather than the search. Recipes and situations are in
+   your "why this one" lines rather than the search. Recipes and situations are in
    [recommending.md](references/recommending.md).
    **When the results look weak, search better before reaching for memory.** Rephrase the
    imagined summaries, add or change `--themes`, try `recommend` from a title they love, loosen
@@ -207,7 +207,7 @@ Lead with the title, then why it suits *them*, then anything they should know:
 
 > **1. Wind River (2017)**, Taylor Sheridan · film · English · 1h47
 > A murder in the snow on a Wyoming reservation, investigated by a game tracker and a rookie FBI
-> agent. Quiet, tense, adult. **Why you:** the same patient procedural dread you liked in
+> agent. Quiet, tense, adult. **Why this one:** the same patient procedural dread you liked in
 > *Zodiac*. *Heads-up:* one brutal flashback scene.
 > IMDb 7.7 · [Trailer](…) · [Where to watch](…)
 > *Found by:* `recommend` from Zodiac (fans of Zodiac also love it, #1) and `ask` (#6, "slow-burn
@@ -221,7 +221,7 @@ Seasons, episodes and creators are on the `show` card (from TMDB). "Ended" doesn
 "resolved": when they want a story that finishes, check on the web whether an ended show was
 cancelled on a cliffhanger.
 
-- **Why you** ties to their own titles or words. Build it from the helper's evidence: `why`
+- **Why this one** ties the pick to their own titles or words. Label it exactly "Why this one", never "Why you" (the user finds "Why you" confusing). Build it from the helper's evidence: `why`
   ("fans of Zodiac also love it", "same feel as Heat", "premise like Dark (Wikipedia)") and `shares` (crowd tags the pick shares
   with their anchors). Use that evidence; don't paste it.
 - **Heads-up** comes from `cautions` (gore, bleak, slow, long, still running, subtitles) and
